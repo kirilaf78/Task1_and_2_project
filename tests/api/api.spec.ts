@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { validCredentials, failedCredentials } from "../../utils/test_data";
+import { validCredentials, failedCredentials } from "../../utils/api_test_data";
 import { RegisterSuccessSchema } from "../../utils/schemas";
 
 test.describe("API tests", () => {

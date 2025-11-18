@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 import type { MyTestOptions } from "./fixures/test-options";
 import dotenv from "dotenv";
+import { QA_DATA, PROD_DATA } from "./utils/ui_test_data";
 
 //Download variable from .env
 
@@ -33,12 +34,7 @@ export default defineConfig<MyTestOptions>({
       testMatch: /.*\/ui\/.*\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
-        //QA data
-        baseURL: "https://en.wikipedia.org",
-        searchQuery: "Playwright",
-        targetLanguage: "Драматург",
-        targetLanguageSelector: "Беларуская",
-        mainTitle: "Wikipedia",
+        ...QA_DATA,
       },
     },
     {
@@ -46,11 +42,7 @@ export default defineConfig<MyTestOptions>({
       testMatch: /.*\/ui\/.*\.spec\.ts/,
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://en.wikipedia.org",
-        searchQuery: "Playwright",
-        targetLanguage: "Драматург",
-        targetLanguageSelector: "Беларуская",
-        mainTitle: "Wikipedia",
+        ...QA_DATA,
       },
     },
 
@@ -60,12 +52,7 @@ export default defineConfig<MyTestOptions>({
       testMatch: /.*\/ui\/.*\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
-        // PROD data
-        baseURL: "https://be.wikipedia.org",
-        searchQuery: "Драматург",
-        targetLanguage: "劇作家",
-        targetLanguageSelector: "日本語",
-        mainTitle: "Вікіпедыя",
+        ...PROD_DATA,
       },
     },
 
