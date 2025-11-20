@@ -1,6 +1,5 @@
 // Importing our custom 'test'
-import { test, expect } from "../../fixures/test-options";
-import { ArticlePage } from "../../pages/articlePage";
+import { test, expect } from "../../fixtures/combined-fixtures";
 import { HelpPage } from "../../pages/helpPage";
 import { attachScreenshot } from "../../utils/report-utils";
 
@@ -11,9 +10,8 @@ test("Wikipedia E2E Flow", async ({
   targetLanguageSelector,
   targetLanguage,
   mainTitle,
+  articlePage,
 }, testInfo) => {
-  const articlePage = new ArticlePage(page);
-
   // 1. Go to base URL and verify
   await page.goto("/");
   await expect(page).toHaveTitle(new RegExp(mainTitle));
@@ -43,7 +41,7 @@ test("Wikipedia E2E Flow", async ({
     context.waitForEvent("page"),
     await articlePage.helpLink.click(),
   ]);
-  await newPage.waitForLoadState("networkidle");
+  await newPage.waitForLoadState("domcontentloaded");
 
   const helpPage = new HelpPage(newPage);
   await helpPage.verifyHelpPageUrl();

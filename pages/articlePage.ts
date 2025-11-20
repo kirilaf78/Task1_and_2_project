@@ -54,6 +54,7 @@ export class ArticlePage {
 
   async selectLanguage(targetLanguage: string) {
     await this.languageButton.click();
+    await this.languageSearchInput.waitFor({ state: "visible" });
     await this.languageSearchInput.fill(targetLanguage);
     const languageLink = this.page.getByRole("link", {
       name: targetLanguage,
