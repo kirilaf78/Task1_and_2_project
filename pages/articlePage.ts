@@ -24,7 +24,7 @@ export class ArticlePage {
 
     // Search
     this.searchInput = page.locator("#searchInput");
-    this.searchButton = page.locator("#searchform button"); // Кнопка поиска
+    this.searchButton = page.locator("#searchform button");
 
     //tabs
     this.firstHeading = page.locator("#firstHeading");
@@ -37,13 +37,11 @@ export class ArticlePage {
     this.languageButton = page.locator("#p-lang-btn");
     this.languageSearchInput = page.locator("input.uls-languagefilter");
 
-    // Edit Modal (Стабильные локаторы)
+    // Edit Modal
     this.editModal = page.locator("//label[@id='ooui-7']");
-    // page.locator("div.oo-ui-dialog");
     this.startEditingButton = page
       .locator(".oo-ui-actionWidget.oo-ui-flaggedElement-primary")
       .getByRole("button");
-    // page.locator( 'a.oo-ui-buttonElement-constructive[href*="action=edit"]');
   }
 
   async search(query: string) {
