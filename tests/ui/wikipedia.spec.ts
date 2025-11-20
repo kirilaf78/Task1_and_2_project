@@ -2,6 +2,7 @@
 import { test, expect } from "../../fixures/test-options";
 import { ArticlePage } from "../../pages/articlePage";
 import { HelpPage } from "../../pages/helpPage";
+import { attachScreenshot } from "../../utils/report-utils";
 
 test("Wikipedia E2E Flow", async ({
   page,
@@ -10,7 +11,7 @@ test("Wikipedia E2E Flow", async ({
   targetLanguageSelector,
   targetLanguage,
   mainTitle,
-}) => {
+}, testInfo) => {
   const articlePage = new ArticlePage(page);
 
   // 1. Go to base URL and verify
@@ -21,9 +22,7 @@ test("Wikipedia E2E Flow", async ({
   await expect(articlePage.firstHeading).toBeVisible();
   await expect(articlePage.firstHeading).toContainText(searchQuery);
 
-  await page.screenshot({
-    path: `screenshots/search-result-${test.info().project.name}.png`,
-  });
+  await attachScreenshot(testInfo, "Search Results", page);
 
   // 3. Click 'Edit'
   await articlePage.editLink.click();
@@ -60,7 +59,5 @@ test("Wikipedia E2E Flow", async ({
   await expect(articlePage.firstHeading).toBeVisible();
   // Verify page title is in Belarusian or Japanese
   await expect(articlePage.firstHeading).toContainText(targetLanguage);
-  await page.screenshot({
-    path: `screenshots/language-switch-${test.info().project.name}.png`,
-  });
+  await attachScreenshot(testInfo, "Language Switch", page);
 });
