@@ -52,41 +52,6 @@ export class ArticlePage {
     await this.page.waitForLoadState("networkidle");
   }
 
-  async verifyHeaderIsVisible() {
-    await expect(this.firstHeading).toBeVisible();
-  }
-
-  async verifyHeaderText(text: string) {
-    await expect(this.firstHeading).toContainText(text);
-  }
-
-  async clickEdit() {
-    await this.editLink.click();
-  }
-
-  async verifyModalIsVisible() {
-    await expect(this.editModal).toBeVisible();
-  }
-  async clickStartEditing() {
-    await this.startEditingButton.click();
-  }
-
-  async verifyModalIsHidden() {
-    await expect(this.editModal).toBeHidden();
-  }
-
-  async clickViewHistory() {
-    await this.viewHistoryLink.click();
-  }
-
-  async clickHelpLink() {
-    await this.helpLink.click();
-  }
-
-  async clickRead() {
-    await this.readLink.click();
-  }
-
   async selectLanguage(targetLanguage: string) {
     await this.languageButton.click();
     await this.languageSearchInput.fill(targetLanguage);

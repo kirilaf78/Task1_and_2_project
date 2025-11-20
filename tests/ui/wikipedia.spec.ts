@@ -18,30 +18,31 @@ test("Wikipedia E2E Flow", async ({
   await expect(page).toHaveTitle(new RegExp(mainTitle));
   // 2. Search
   await articlePage.search(searchQuery);
-  await articlePage.verifyHeaderIsVisible();
-  await articlePage.verifyHeaderText(searchQuery);
+  await expect(articlePage.firstHeading).toBeVisible();
+  await expect(articlePage.firstHeading).toContainText(searchQuery);
+
   await page.screenshot({
     path: `screenshots/search-result-${test.info().project.name}.png`,
   });
 
   // 3. Click 'Edit'
-  await articlePage.clickEdit();
+  await articlePage.editLink.click();
 
   // 4. Verify Modal
-  await articlePage.verifyModalIsVisible();
+  await expect(articlePage.editModal).toBeVisible();
 
   // 5. Click 'Start editing' (используем метод из POM)
-  await articlePage.clickStartEditing();
+  await articlePage.startEditingButton.click();
 
   // 6. Verify Modal is hidden
-  await articlePage.verifyModalIsHidden();
+  await expect(articlePage.editModal).toBeHidden();
 
   // 7. Click 'View history', click 'Help'
-  await articlePage.clickViewHistory();
+  await articlePage.viewHistoryLink.click();
 
   const [newPage] = await Promise.all([
     context.waitForEvent("page"),
-    articlePage.clickHelpLink(),
+    await articlePage.helpLink.click(),
   ]);
   await newPage.waitForLoadState("networkidle");
 
@@ -50,15 +51,15 @@ test("Wikipedia E2E Flow", async ({
   await newPage.close();
 
   // 8. Go back to 'Read' section
-  await articlePage.clickRead();
+  await articlePage.readLink.click();
 
   // Open language list and select target language
   await articlePage.selectLanguage(targetLanguageSelector);
 
   // Verify Appropriate article opens
-  await articlePage.verifyHeaderIsVisible();
+  await expect(articlePage.firstHeading).toBeVisible();
   // Verify page title is in Belarusian or Japanese
-  await articlePage.verifyHeaderText(targetLanguage);
+  await expect(articlePage.firstHeading).toContainText(targetLanguage);
   await page.screenshot({
     path: `screenshots/language-switch-${test.info().project.name}.png`,
   });
