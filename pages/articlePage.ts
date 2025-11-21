@@ -47,7 +47,7 @@ export class ArticlePage {
   async search(query: string) {
     await this.searchInput.fill(query);
     await this.searchButton.click();
-    await this.page.waitForLoadState("networkidle");
+    await this.page.waitForLoadState("domcontentloaded");
   }
 
   async selectLanguage(targetLanguage: string) {
@@ -60,6 +60,6 @@ export class ArticlePage {
     });
     await languageLink.waitFor({ state: "visible" });
     await languageLink.click();
-    await this.page.waitForLoadState("networkidle");
+    await this.page.waitForLoadState("domcontentloaded");
   }
 }
