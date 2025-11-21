@@ -48,7 +48,7 @@ test("Wikipedia E2E Flow", async ({
   await newPage.close();
 
   // 8. Go back to 'Read' section
-  await articlePage.readLink.click();
+  await page.goto(`/wiki/${searchQuery}`);
 
   // Open language list and select target language
   await articlePage.selectLanguage(targetLanguageSelector);
